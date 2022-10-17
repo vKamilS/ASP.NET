@@ -14,6 +14,7 @@ builder.Services.AddDbContext<DataDbContext>(options => options.UseSqlServer(
 
 builder.Services.AddScoped<IDataDbContext, DataDbContext>();
 builder.Services.AddScoped<BlogPostService, BlogPostService>();
+builder.Services.AddScoped<UserService, UserService>();
 
 
 var app = builder.Build();

@@ -11,11 +11,11 @@ namespace DataAccess.Models
         {
             BlogPosts = new HashSet<BlogPost>();
         }
-
-        public int UserId { get; set; }
+public int UserId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public DateTime? CakeDay { get; set; }
+        
 
         public virtual ICollection<BlogPost> BlogPosts { get; set; }
     }
