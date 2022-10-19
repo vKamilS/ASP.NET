@@ -21,103 +21,21 @@
 </head>
 <body>
     <div id="app" v-cloak>
-        <v-app>
+        <k-layout :page-title="actualSite">
+            <v-container fluid>
+                <v-row>
+                    <h1>This is contact page</h1>
+                </v-row>
+            </v-container>
+        </k-layout>
 
-            <v-app-bar app color="light-green darken-1 pa-0" height=75px>
-
-                <v-app-bar-nav-icon class="white--text" @@click="drawler = !drawler"></v-app-bar-nav-icon>
-                <v-toolbar-title>
-                    <h3 class="font-weight-bold mt-3 pt-2 white--text">BlogPost App</h3>
-                    <p class="white--text">{{actualSite}}</p>
-                </v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-btn class="green darken-2">
-                    <span class="white--text">Sign In</span>
-                    <v-icon right class="white--text">mdi-login</v-icon>
-                </v-btn>
-            </v-app-bar>
-
-            <v-navigation-drawer v-model="drawler" app class="light-green darken-1">
-                <v-container>
-                    <v-row justify="end">
-                        <v-btn fab small @@click="drawler = !drawler" class="green darken-2 white--text">
-                            <v-icon>mdi-close</v-icon>
-                        </v-btn>
-                    </v-row>
-                    @* <v-list>
-                    <v-list-tile v-for="link in links" :accesskey="link.text">
-                    <v-btn class="green darken-2 white--text ml-2 mb-2" width="200px" >
-                    <v-list-tile-action>
-                    <v-icon class="white--text">{{link.icon}}</v-icon>
-                    </v-list-tile-action >
-                    <v-list-tile-content >
-                    <a class="nav-link text-dark" asp-area="" asp-controller={{link.controller}} asp-action="Index">
-                    <v-list-tile-title class="white--text">
-                    {{link.text}}
-                    </v-list-tile-title>
-                    </a>
-                    </v-list-tile-content>
-                    </v-btn>
-                    </v-list-tile>
-                    </v-list>*@
-                    <v-row>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
-                            <v-btn class="green darken-2 white--text ml-2 mb-2" width="200px">
-                                <v-icon>mdi-home</v-icon>
-                                Home page
-                            </v-btn>
-                        </a>
-                    </v-row>
-                    <v-row>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="BlogPosts" asp-action="Index">
-                            <v-btn class="green darken-2 white--text ml-2 mb-2" width="200px">
-                                <v-icon>mdi-post-outline</v-icon>
-                                BlogPosts page
-                            </v-btn>
-                        </a>
-                    </v-row>
-                    <v-row>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">
-                            <v-btn class="green darken-2 white--text ml-2 mb-2" width="200px">
-                                <v-icon>mdi-account-group</v-icon>
-                                Users page
-                            </v-btn>
-                        </a>
-                    </v-row>
-                    <v-row>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">
-                            <v-btn class="green darken-2 white--text ml-2 mb-2" width="200px">
-                                <v-icon>mdi-email</v-icon>
-                                Contact pege
-                            </v-btn>
-                        </a>
-                    </v-row>
-                </v-container>
-            </v-navigation-drawer>
-            
-            
-            
-
-            <!-- Sizes your content based upon application components -->
-            <v-main class="ma-5">
-
-                <!-- Provides the application the proper gutter -->
-                <v-container fluid>
-                    <v-row>
-                        <h1>This is contact page</h1>
-                    </v-row>
-                </v-container>
-            </v-main>
-
-            <v-footer app>
-                <!-- -->
-            </v-footer>
-        </v-app>
+               
+ 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/js/navbar.js"></script>
+    <script src="/js/kapp.js"></script>
     <script>
 
         
@@ -129,12 +47,7 @@
                 text: "Hello World",
                 drawler: false,
                 actualSite: "Contact",
-                links: [
-                    { icon: 'mdi-home', text: 'Home', controller: 'Home' },
-                    { icon: 'mdi-post-outline', text: 'Blog Posts', controller: 'BlogPosts' },
-                    { icon: 'mdi-account-group', text: 'Users', controller: 'Users' },
-                    { icon: 'mdi-email', text: 'Contact', controller: 'Contact' },
-                ]
+
             },
             methods:{
                 helloWorld(){

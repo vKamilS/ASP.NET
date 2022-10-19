@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\js\navbar.js" />
+    <None Include="wwwroot\js\kapp.js" />
   </ItemGroup>
 
   <ItemGroup>
