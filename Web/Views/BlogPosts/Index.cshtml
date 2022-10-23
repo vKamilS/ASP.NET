@@ -25,9 +25,6 @@
         <k-layout :page-title="actualSite">
             <v-container fluid>
                 <v-row>
-                    <button-counter></button-counter>
-                </v-row>
-                <v-row>
                     <v-text-field v-model="text">
 
                     </v-text-field>
@@ -37,23 +34,31 @@
                         {{text}}
                     </v-btn>
                 </v-row>
-                <v-row>
-                    <v-list v-if="blogModels">
-                        <v-list-item class="ma-4" v-for="(item, index) in blogModels" :accesskey="index">
-                            <v-card width="50%">
-                                <v-card-title>
-                                    {{item.title}}
-                                </v-card-title>
-                                <v-card-text>
-                                    {{item.content}}
-                                </v-card-text>
-                                <v-card-actions>
-                                    <v-btn>
-                                        Edit
-                                    </v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </v-list-item>
+                <v-row class="pt-5">
+                    <v-list v-if="blogModels" class="grey lighten-3">
+                        <v-layout row wrap class="mx-2" justify-space-around>
+                                <v-flex xs12 md6  class="pa-2 " v-for="(item, index) in blogModels" :key="index">
+                                    <v-card height="200px" class="pa-1">
+                                        <v-card-title>
+                                            {{item.title}}
+                                        </v-card-title>
+                                        <v-row class>
+                                            <v-card-text>
+                                                {{item.content.substr(0,150)}}...
+                                            </v-card-text>
+                                        </v-row>
+                                        
+                                        <v-card-actions>
+                                            <v-btn>
+                                                Show detail
+                                            </v-btn>
+                                        </v-card-actions>
+                                        
+                                    </v-card>
+                                </v-flex>
+                            
+                           
+                        </v-layout>
                     </v-list>
                     <v-progress-circular v-else indeterminate>
 
@@ -83,12 +88,7 @@
                 blogModels: model,
                 drawler: false,
                 actualSite: "Blog Posts",
-                links: [
-                    { icon: 'mdi-home', text: 'Home', controller: 'Home' },
-                    { icon: 'mdi-post-outline', text: 'Blog Posts', controller: 'BlogPosts' },
-                    { icon: 'mdi-account-group', text: 'Users', controller: 'Users' },
-                    { icon: 'mdi-email', text: 'Contact', controller: 'Contact' },
-                ]
+                
             },
             methods:{
                 helloWorld(){

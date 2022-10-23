@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app" v-cloak>
-        <k-layout :page-title="actualSite">
+        <k-layout :page-title="actualSite" :actual-host="actualHost">
             <h1>This is Home page</h1>
         </k-layout>
     </div>
@@ -37,13 +37,7 @@
                 text: "Hello World",
                 drawler: false,
                 actualSite: "Home Page",
-                links: [
-                    { icon: 'mdi-home', text: 'Home', controller: 'Home' },
-                    { icon: 'mdi-post-outline', text: 'Blog Posts', controller: 'BlogPosts' },
-                    { icon: 'mdi-account-group', text: 'Users', controller: 'Users' },
-                    { icon: 'mdi-email', text: 'Contact', controller: 'Contact' },
-                ]
-
+                actualHost: window.location.href
             },
             methods:{
                 helloWorld(){

@@ -23,7 +23,7 @@
                             <v-list>
                                 <v-list-item class="text-right">
                                     <v-list-item-content>
-                                        <spacer/>
+                                        <v-spacer></v-spacer>
                                         <v-col>
                                             <v-btn fab small @click="drawler = !drawler" class="green darken-2 white--text">
                                             <v-icon>mdi-close</v-icon>
@@ -33,7 +33,7 @@
                                 </v-list-item>
                                 <v-list-item v-for="link, i in links" :key="i">
                                     <v-list-item-content>
-                                        <v-btn :href="'#'+i" class="green darken-2 white--text">
+                                        <v-btn :href=link.url class="green darken-2 white--text">
                                             <v-col> 
                                                 <v-icon>{{link.icon}}</v-icon>
                                             </v-col>                                 
@@ -46,10 +46,11 @@
                             </v-list>
                         </v-col>
                     </v-row>
+                </v-container>
             </v-navigation-drawer>
 
-            <v-main>
-                <slot></slot>
+            <v-main class="grey lighten-3" >
+                <slot ></slot>
             </v-main>
 
             <v-footer></v-footer>
@@ -60,15 +61,18 @@
             drawler: false,
             actualSite: 'Home page',
             links: [
-                { icon: 'mdi-home', text: 'Home', controller: 'Home' },
-                { icon: 'mdi-post-outline', text: 'Blog Posts', controller: 'BlogPosts' },
-                { icon: 'mdi-account-group', text: 'Users', controller: 'Users' },
-                { icon: 'mdi-email', text: 'Contact', controller: 'Contact' },
-            ]
+                { icon: 'mdi-home', text: 'Home', url: window.location.origin + '/Home/Index' },
+                { icon: 'mdi-post-outline', text: 'Blog Posts', url: window.location.origin + '/BlogPosts/Index' },
+                { icon: 'mdi-account-group', text: 'Users', url: window.location.origin + '/Users/Index' },
+                { icon: 'mdi-email', text: 'Contact', url: window.location.origin + '/Contact/Index' },
+            ],
+
+            
+            
 
         }
     },
-    props: ["pageTitle"]
+    props: ["pageTitle", "aktualHost"]
 })
 
       
