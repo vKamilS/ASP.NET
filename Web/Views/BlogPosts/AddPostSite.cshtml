@@ -1,0 +1,95 @@
+﻿@using DataAccess
+@using Core.Models
+@using System.Text.Json
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <style>
+       .border {
+           
+           border-radius: 5px;
+       }
+
+        [v-cloak] {
+            display: none
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+
+        <k-layout :page-title="actualSite">
+            <v-layout class="mt-5" justify-space-around>
+                <v-flex xs10 md8>
+                    
+                    <v-form class="border pa-5 white" ref="addPostForm">
+                        <h2>Add new post</h2>
+                        <v-text-field label="Title" v-model="newPostTitle" prepend-icon="mdi-folder" :rules="titleRules" counter="30"></v-text-field>
+                        <v-textarea label="Content" v-model="newPostContent" prepend-icon="mdi-application-edit-outline" :rules="contentRules" counter="1000"></v-textarea>
+                        <v-layout class="mt-2" justify-space-between>
+                            <v-btn class="green darken-2 white--text" width="125px" :href="blogPostsLink">
+                                <v-icon left>mdi-chevron-double-left</v-icon>
+                                Back
+                            </v-btn>
+                            
+                            <v-btn class="green darken-2 white--text" width="125px" @@click="submit">
+                                <v-icon left>mdi-plus-thick</v-icon>
+                                Add post
+                            </v-btn>
+                        </v-layout>
+                    </v-form>
+                   
+                </v-flex>
+            </v-layout>
+        </k-layout>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/kapp.js"></script>
+
+    <script>
+
+                const app = new Vue({
+                el: '#app',
+                vuetify: new Vuetify(),
+                data: {
+                    actualSite: "Blog Posts",
+                    newPostTitle: "",
+                    newPostContent: "",
+                    titleRules: [
+                        v => v.length >= 3 || 'Minimum length is 3 characters',
+                        v => v.length < 30 || 'Maximum length is 30 characters'
+                    ],
+                    contentRules: [
+                        v => v.length >= 5 || 'Minimum length is 5 characters',
+                        v => v.length < 1000 || 'Maximum length is 1000 charakters'
+                    ]
+
+                },
+                methods: {
+                    submit(){
+                        if (this.$refs.addPostForm.validate()){
+                            console.log(this.newPostTitle, this.newPostContent);
+                        }
+                    }
+                },
+                computed: {
+                    blogPostsLink(){
+                    return window.location.origin + "/BlogPosts/Index"
+                    }
+                }
+
+            });
+    </script>
+</body>
+</html>

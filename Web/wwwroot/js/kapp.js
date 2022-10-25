@@ -66,7 +66,7 @@
                 { icon: 'mdi-account-group', text: 'Users', url: window.location.origin + '/Users/Index' },
                 { icon: 'mdi-email', text: 'Contact', url: window.location.origin + '/Contact/Index' },
             ],
-
+            
             
             
 

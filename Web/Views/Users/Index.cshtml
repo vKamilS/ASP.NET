@@ -70,23 +70,12 @@
             el: '#app',
             vuetify: new Vuetify(),
             data: {
-                text: "Hello World",
                 userModels: model,
-                drawler: false,
                 actualSite: "Users",
-               
             },
             methods:{
-                helloWorld(){
-                    console.log(this.text);
-                    
-                }
+  
             },
-            //async mounted() {
-            //    const response = await axios.get("https://localhost:44355/DataTable/GetBlogModels");
-            //    console.log(response.data);
-            //    setTimeout(() => this.blogModels = response.data, 3000)
-            //}
         });
     </script>
 </body>

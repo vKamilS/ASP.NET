@@ -15,6 +15,11 @@ namespace Web.Controllers
             var blogPosts = await BlogPostService.GetAllModels();
             return View(blogPosts);
         }
+
+        public async Task<IActionResult> AddPostSite()
+        {
+            return View();
+        }
     }
 }
 
