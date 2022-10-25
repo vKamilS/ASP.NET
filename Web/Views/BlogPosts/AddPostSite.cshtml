@@ -40,15 +40,29 @@
                                 Back
                             </v-btn>
                             
-                            <v-btn class="green darken-2 white--text" width="125px" @@click="submit">
-                                <v-icon left>mdi-plus-thick</v-icon>
-                                Add post
-                            </v-btn>
+                            
+                            <v-dialog width="600px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-btn v-bind="attrs" v-on="on" class="green darken-2 white--text" width="125px" slot="activator" @@click="submit">
+                                    <v-icon left>mdi-plus-thick</v-icon>
+                                    Add post
+                                    </v-btn>
+                                </template>
+                                <v-card v-if="popUpValue == 'validated'">
+                                    <v-container text-center class="display-1 light-green darken-1 white--text">NEW POST WAS ADDED</v-container>
+                                </v-card>
+                                <v-card v-if="popUpValue == 'not validated'" >
+                                    <v-container text-center class="display-1 red accent-2 white--text">THE FORM HAS NOT BEEN COMPLETED CORRECTLY</v-container>
+                                    
+                                </v-card>
+                            </v-dialog>
                         </v-layout>
                     </v-form>
                    
                 </v-flex>
             </v-layout>
+            
+            
         </k-layout>
 
     </div>
@@ -58,7 +72,7 @@
     <script src="/js/kapp.js"></script>
 
     <script>
-
+        
                 const app = new Vue({
                 el: '#app',
                 vuetify: new Vuetify(),
@@ -66,6 +80,7 @@
                     actualSite: "Blog Posts",
                     newPostTitle: "",
                     newPostContent: "",
+                    popUpValue: "",
                     titleRules: [
                         v => v.length >= 3 || 'Minimum length is 3 characters',
                         v => v.length < 30 || 'Maximum length is 30 characters'
@@ -79,13 +94,23 @@
                 methods: {
                     submit(){
                         if (this.$refs.addPostForm.validate()){
-                            console.log(this.newPostTitle, this.newPostContent);
+                             this.popUpValue = "validated";
+                             console.log(this.newPostTitle, this.newPostContent);
+                             setTimeout(function(){
+                                window.location = "https://localhost:7167/BlogPosts/Index";
+                             },3000);
+                        }
+                        else {
+                            this.popUpValue = "not validated";
                         }
                     }
                 },
                 computed: {
                     blogPostsLink(){
                     return window.location.origin + "/BlogPosts/Index"
+                    },
+                    isFormValidate(){
+                    return this.$refs.addPostForm.validate()
                     }
                 }
 
