@@ -1,7 +1,7 @@
 ﻿@using DataAccess
 @using Core.Models
 @using System.Text.Json
-@model IEnumerable<BlogPostModel>
+@model PostsSearchViewModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +17,10 @@
         [v-cloak] {
             display: none
         }
+        .titleborder {
+            border-bottom: 2px solid grey
+        }
+       
     </style>
 </head>
 <body>
@@ -27,18 +31,18 @@
         
                 <v-layout row wrap justify-space-between class="mt-3">
                     <v-flex xs12 md8 class="px-4">
-                        <v-text-field>
+                        <v-text-field label="filterPosts" v-model="searchText" class="white px-3 rounded-lg">
 
                         </v-text-field>
                     </v-flex>
                    
-                    <v-flex xs4 md2 class="pl-4">
-                        <v-btn width="125px">
+                    <v-flex xs4 md2 class="pl-4 mt-4">
+                        <v-btn width="125px" @@click="consLog">
                             SEARCH
                         </v-btn>
                     </v-flex>
                    
-                    <v-flex xs4 md2 class="pr-5" text-right>
+                    <v-flex xs4 md2 class="pr-5 mt-4" text-right>
                         <v-btn :href="addPostLink" width="125px">
                             <v-icon>mdi-plus-circle-outline</v-icon>
                             Add Post
@@ -48,7 +52,7 @@
                 </v-layout>
 
                 <v-row class="pt-5">
-                    <v-list v-if="blogModels" class="grey lighten-3">
+                    <v-list v-if="blogModels" class="grey lighten-3" width="100%">
                         <v-layout row wrap class="mx-2" justify-space-between>
                             <v-flex xs12 md6 class="pa-2 " v-for="(item, index) in blogModels" :key="index">
                                 <v-card height="200px" class="pa-1">
@@ -60,10 +64,27 @@
                                     </v-card-text>
 
                                     <v-card-actions>
-                                        <v-btn>
-                                            Show post
-                                        </v-btn>
+                                       <v-dialog width="600px">
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-btn v-bind="attrs" v-on="on"  width="150px" slot="activator">
+                                                    <v-icon left>mdi-eye</v-icon>
+                                                    Show post
+                                                </v-btn>
+                                            </template>
+                                            <v-card>
+                                                <v-card-title class="titleborder">
+                                                    {{item.title}}
+                                                </v-card-title>
+                                                <v-card-text class="black--text" >
+                                                    {{item.content}}
+                                                </v-card-text>
+                                            </v-card>
+                                            
+                                        </v-dialog>
                                     </v-card-actions>
+                                    
+
+                                    
 
                                 </v-card>
                             </v-flex>
@@ -71,9 +92,17 @@
                            
                         </v-layout>
                     </v-list>
-                    <v-progress-circular v-else indeterminate>
-
-                    </v-progress-circular>
+                    <v-progress-circular v-else indeterminate></v-progress-circular>
+                </v-row>
+                <v-row justify-center>
+                    <v-col v-if="page > 1" class="text-right">
+                        <v-btn :href="`${postPage}?page=${page-1}`">Previous Page</v-btn>
+                    </v-col>
+                    <v-col v-else></v-col>
+                    <v-col v-if="postsOnSite >= 6">
+                        <v-btn :href="`${postPage}?page=${page+1}`">Next Page</v-btn>
+                    </v-col>
+                    <v-col v-else></v-col>
                 </v-row>
             </v-container>
         </k-layout>
@@ -88,11 +117,11 @@
 
         
 
-        const model = @Html.Raw(JsonSerializer.Serialize(Model, new JsonSerializerOptions(){
+        const model = @Html.Raw(JsonSerializer.Serialize(Model.Model, new JsonSerializerOptions(){
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         }));
-
-        const linkes = window.location.origin + "/BlogPosts/AddPostSite";
+  
+        
         
         const app = new Vue({
             el: '#app',
@@ -100,19 +129,31 @@
             data: {
                 blogModels: model,
                 actualSite: "Blog Posts",
+                page: @Model.Page,
+                searchText: "",
+                postsOnSite: @Model.Model.Count(),
+                
                 
             },
             methods:{
-                
+                consLog(){
+                    console.log(this.postPageInfo.searchText)
+                }
             },
             computed:{
                 addPostLink(){
                     return window.location.origin + "/BlogPosts/AddPostSite"
-                }
-            },
+                },
+                postPage(){
+                    return window.location.origin + window.location.pathname
+                },
+            
 
-            // get model using axios
-            //async mounted() {
+            },
+            
+
+            //    get model using axios
+            //    async mounted() {
             //    const response = await axios.get("https://localhost:44355/DataTable/GetBlogModels");
             //    console.log(response.data);
             //    setTimeout(() => this.blogModels = response.data, 3000)

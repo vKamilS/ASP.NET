@@ -1,6 +1,7 @@
 ﻿@using DataAccess
 @using Core.Models
 @using System.Text.Json
+@model PostModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -72,8 +73,13 @@
     <script src="/js/kapp.js"></script>
 
     <script>
-        
-                const app = new Vue({
+            const model = @Html.Raw(JsonSerializer.Serialize(Model, new JsonSerializerOptions(){
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            }));
+            
+            
+
+            const app = new Vue({
                 el: '#app',
                 vuetify: new Vuetify(),
                 data: {
@@ -81,6 +87,7 @@
                     newPostTitle: "",
                     newPostContent: "",
                     popUpValue: "",
+                    newPostModel: model, 
                     titleRules: [
                         v => v.length >= 3 || 'Minimum length is 3 characters',
                         v => v.length < 30 || 'Maximum length is 30 characters'
@@ -92,13 +99,18 @@
 
                 },
                 methods: {
-                    submit(){
+                    async submit(){
                         if (this.$refs.addPostForm.validate()){
-                             this.popUpValue = "validated";
-                             console.log(this.newPostTitle, this.newPostContent);
+                                this.popUpValue = "validated";
+                                this.newPostModel.Title = this.newPostTitle;
+                                this.newPostModel.Content = this.newPostContent;
+
+                                console.log(this.newPostModel);
+
+                             var response = await axios.post(`https://localhost:7167/BlogPosts/AddPost`, this.newPostModel);
                              setTimeout(function(){
                                 window.location = "https://localhost:7167/BlogPosts/Index";
-                             },3000);
+                                },3000);
                         }
                         else {
                             this.popUpValue = "not validated";

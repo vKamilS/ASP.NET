@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <ProjectReference Include="..\KLearn.DataAccess\KLearn.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

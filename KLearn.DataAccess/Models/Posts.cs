@@ -1,10 +1,11 @@
-﻿namespace Core.Models
+﻿namespace KLearn.DataAccess
 {
-    public class BlogPostModel
+    public class Post
     {
-        public int BlogPostId { get; set; }
+        public int Id { get; set; } 
         public string Title { get; set; }
         public string Content { get; set; }
         public string? Author { get; set; }
+        public DateTime? Created { get; set; }
     }
 }

@@ -1,8 +1,12 @@
 using Core.Services;
 using DataAccess.Data;
+using KLearn.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews()
@@ -11,13 +15,24 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddDbContext<DataDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+builder.Services.AddDbContext<BlogPostsDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("PostAppConnection")
+    ));
 
 builder.Services.AddScoped<IDataDbContext, DataDbContext>();
 builder.Services.AddScoped<BlogPostService, BlogPostService>();
 builder.Services.AddScoped<UserService, UserService>();
+builder.Services.AddScoped<IBlogPostsDbContext, BlogPostsDbContext>();
+builder.Services.AddScoped<PostsService, PostsService>();
 
 
 var app = builder.Build();
+IServiceProvider serviceProvider = app.Services;
+
+var scope = serviceProvider.CreateScope();
+scope.ServiceProvider.GetRequiredService<BlogPostsDbContext>().Database.EnsureCreated();
+
+
 
 
 // Configure the HTTP request pipeline.
@@ -39,6 +54,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();
 

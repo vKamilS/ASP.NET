@@ -1,10 +1,5 @@
 ﻿using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Data
 {
@@ -12,6 +7,7 @@ namespace DataAccess.Data
     {
         DbSet<BlogPost> BlogPosts { get; set; }
         DbSet<User> Users { get; set; }
+        public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
     }
     
     public partial class DataDbContext : IDataDbContext
