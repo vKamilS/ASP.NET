@@ -1,0 +1,92 @@
+﻿@using DataAccess
+@using Core.Models
+@using System.Text.Json
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <style>
+        [v-cloak] {
+            display: none
+        }
+
+        .border {
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+            
+        <k-layout :page-title="actualSite">
+            <v-layout justify-center>
+                <v-flex xs10 md5 class="mt-5">
+                   <v-form class="border pa-5 white" href="signInForm">
+                       <h2>Create user</h2>
+                        <v-text-field label="Login" prepend-icon="mdi-account" v-model="userRegisterDto.UserName"></v-text-field>
+                        <v-text-field label="E-mail" prepend-icon="mdi-account" v-model=userRegisterDto.Email></v-text-field>
+                        <v-text-field label="Password" :type="hidePassword ? 'password' : 'text'" prepend-icon="mdi-key"
+                                      :append-icon="hidePassword ? 'mdi-eye-off' : 'mdi-eye'" v-model=userRegisterDto.Password
+                                      @@click:append="() => (hidePassword = !hidePassword)"></v-text-field>
+                        <v-text-field label="Repeat password" :type="hidePassword ? 'password' : 'text'" prepend-icon="mdi-key"
+                                      :append-icon="hidePassword ? 'mdi-eye-off' : 'mdi-eye'"
+                                      @@click:append="() => (hidePassword = !hidePassword)"></v-text-field>
+                        <v-layout class="justify-space-between">
+                            <v-btn :href="signInPage" class="green darken-2 white--text text-capitalize">Back</v-btn>
+                            <v-btn class="green darken-2 white--text text-capitalize" @@click="create">Create</v-btn>
+                        </v-layout>
+                                      
+
+                   </v-form>
+                </v-flex>
+            </v-layout>
+        </k-layout>
+
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/kapp.js"></script>
+    <script>
+
+ 
+        const app = new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+            data: {
+                hidePassword: true,
+                actualSite: "Create user",
+                userRegisterDto: {
+                    UserName: "",
+                    Email: "",
+                    Password: ""
+                }
+            },
+            methods:{
+                async create(){
+                    return var response = await axios.post(`${window.location.origin}/Users/Register`, this.userRegisterDto)
+                }
+            },
+            computed: {
+                
+                signInPage() {
+                    return window.location.origin + "/Users/SignIn"
+                },
+                
+
+
+            },
+        });
+    </script>
+</body>
+</html>

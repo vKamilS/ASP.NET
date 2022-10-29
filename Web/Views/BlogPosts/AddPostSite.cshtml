@@ -109,7 +109,7 @@
 
                              var response = await axios.post(`https://localhost:7167/BlogPosts/AddPost`, this.newPostModel);
                              setTimeout(function(){
-                                window.location = "https://localhost:7167/BlogPosts/Index";
+                                window.location = `${windol.location.origin}/BlogPosts/Index`;
                                 },3000);
                         }
                         else {

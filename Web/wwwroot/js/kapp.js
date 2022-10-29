@@ -10,9 +10,9 @@
                     <p class="white--text">{{pageTitle}}</p>
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn class="green darken-2">
-                    <span class="white--text">Sign In</span>
-                    <v-icon right class="white--text">mdi-login</v-icon>
+                <v-btn :href="signInPage" class="green darken-2 white--text text-capitalize">
+                    <span>Sign In</span>
+                    <v-icon right>mdi-login</v-icon>
                 </v-btn>
             </v-app-bar>
 
@@ -66,13 +66,21 @@
                 { icon: 'mdi-account-group', text: 'Users', url: window.location.origin + '/Users/Index' },
                 { icon: 'mdi-email', text: 'Contact', url: window.location.origin + '/Contact/Index' },
             ],
+            signInPage: `${window.location.origin}/Users/SignIn`
             
             
             
 
         }
     },
-    props: ["pageTitle", "aktualHost"]
+    props: ["pageTitle", "aktualHost"],
+    //computed() {
+    //    return {
+    //        signInPage() {
+    //            return window.location.origin + "/Users/SignIn"
+    //        }
+    //    }
+    //}
 })
 
       

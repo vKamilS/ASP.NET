@@ -1,6 +1,8 @@
 using Core.Services;
 using DataAccess.Data;
 using KLearn.DataAccess;
+using KLearn.DataAccess.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +20,12 @@ builder.Services.AddDbContext<DataDbContext>(options => options.UseSqlServer(
 builder.Services.AddDbContext<BlogPostsDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("PostAppConnection")
     ));
+        
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+{
+    config.SignIn.RequireConfirmedEmail = true;
+}).AddEntityFrameworkStores<BlogPostsDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IDataDbContext, DataDbContext>();
 builder.Services.AddScoped<BlogPostService, BlogPostService>();
@@ -49,6 +57,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

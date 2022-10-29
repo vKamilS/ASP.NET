@@ -1,8 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KLearn.DataAccess.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace KLearn.DataAccess
 {
-    public partial class BlogPostsDbContext : DbContext
+    public partial class BlogPostsDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Post> Posts { get; set; }
 
@@ -10,6 +14,25 @@ namespace KLearn.DataAccess
         {
 
         }
-        
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Administrator",
+                NormalizedName = "ADMINISTRATOR"
+                },
+                new IdentityRole
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Standard",
+                    NormalizedName = "STANDARD"
+                }
+            );
+        }
+
     }
 }

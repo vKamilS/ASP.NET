@@ -22,6 +22,7 @@
     <div id="app" v-cloak>
         <k-layout :page-title="actualSite">
             <h1>This is Home page</h1>
+            <v-btn @@click="signOut">{{buttonText}}</v-btn>
         </k-layout>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
@@ -30,15 +31,39 @@
     <script src="/js/kapp.js"></script>
     <script>
 
+        
+
         const app = new Vue({
             el: '#app',
             vuetify: new Vuetify(),
             data: {
                 variable1: @ViewBag.MyVariable,
                 actualSite: "Home Page",
+                buttonText: "1"
             },
             methods:{
+                async signOut() {
+                    var response = await axios.get(`${window.location.origin}/Users/SignOut`);
+                    console.log(response.data);
+                    window.location = `${window.location.origin}/Home/Index`;
+                    return response;
+                }
             },
+            async mounted() {
+                
+                try{
+                    const response = await axios.get(`${window.location.origin}/Users/GetCurrentUser`);
+                    this.buttonText = "3";
+                } catch(error)
+                {
+                    console.log(error.response.status);
+                    this.buttonText = "4";
+                }
+               
+                
+                
+            }
+
 
         });
     </script>

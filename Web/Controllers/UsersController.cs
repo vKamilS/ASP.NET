@@ -1,20 +1,107 @@
 ﻿using Core.Services;
+using KLearn.DataAccess.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Web.Dto;
 
 namespace Web.Controllers
 {
+    
     public class UsersController : Controller
     {
-        public UserService UserService { get; set; }
-        public UsersController(UserService userService)
+
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        //public UserService UserService { get; set; }
+        public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
-            UserService = userService;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            //UserService = userService;
+
         }
-    
+
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var users = await UserService.GetAllUsers();
-            return View(users);
+            //var users = await UserService.GetAllUsers();
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SignIn()
+        {
+
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateUserPage()
+        {
+
+            return View();
+        }
+
+        [HttpGet]
+
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+            return Ok(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] UserRegisterDto userRegisterDto)
+        {
+            var newUser = new ApplicationUser
+            {
+                UserName = userRegisterDto.UserName,
+                Email = userRegisterDto.Email,
+                Created = DateTime.Now,
+                
+            };
+            
+            var result = await _userManager.CreateAsync(newUser, userRegisterDto.Password);
+            if (result.Succeeded)
+            {
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+                await _userManager.ConfirmEmailAsync(newUser, token);
+
+                return Ok();
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody] UserLoginDto userLoginDto)
+        {
+            var foundUser = await _userManager.FindByNameAsync(userLoginDto.Login);
+            if (foundUser == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(foundUser, userLoginDto.Password, true, false);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            return NotFound();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SignOut()
+        {
+           
+
+            await _signInManager.SignOutAsync();
+            
+            return Ok();
+           
         }
     }
 }

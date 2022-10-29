@@ -12,17 +12,3 @@ C:\Users\sulkowk\source\repos\KLearn\KLearn.DataAccess\obj\Debug\net6.0\KLearn.D
 C:\Users\sulkowk\source\repos\KLearn\KLearn.DataAccess\obj\Debug\net6.0\ref\KLearn.DataAccess.dll
 C:\Users\sulkowk\source\repos\KLearn\KLearn.DataAccess\bin\Debug\net6.0\KLearn.DataAccess.runtimeconfig.json
 C:\Users\sulkowk\source\repos\KLearn\KLearn.DataAccess\obj\Debug\net6.0\KLearn.DataAccess.genruntimeconfig.cache
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\bin\Debug\net6.0\KLearn.DataAccess.deps.json
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\bin\Debug\net6.0\KLearn.DataAccess.runtimeconfig.json
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\bin\Debug\net6.0\KLearn.DataAccess.dll
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\bin\Debug\net6.0\KLearn.DataAccess.pdb
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\obj\Debug\net6.0\KLearn.DataAccess.csproj.AssemblyReference.cache
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\obj\Debug\net6.0\KLearn.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\obj\Debug\net6.0\KLearn.DataAccess.AssemblyInfoInputs.cache
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\obj\Debug\net6.0\KLearn.DataAccess.AssemblyInfo.cs
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\obj\Debug\net6.0\KLearn.DataAccess.csproj.CoreCompileInputs.cache
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\obj\Debug\net6.0\KLearn.DataAccess.dll
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\obj\Debug\net6.0\refint\KLearn.DataAccess.dll
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\obj\Debug\net6.0\KLearn.DataAccess.pdb
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\obj\Debug\net6.0\KLearn.DataAccess.genruntimeconfig.cache
-C:\Users\sulkowk\source\repos\ASP.NET\KLearn.DataAccess\obj\Debug\net6.0\ref\KLearn.DataAccess.dll
