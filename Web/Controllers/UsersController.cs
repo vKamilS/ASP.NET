@@ -2,7 +2,7 @@
 using KLearn.DataAccess.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Web.Dto;
+using Web;
 
 namespace Web.Controllers
 {
@@ -47,11 +47,17 @@ namespace Web.Controllers
         public async Task<IActionResult> GetCurrentUser()
         {
             var user = await _userManager.GetUserAsync(User);
+          
             if (user == null)
             {
                 return Unauthorized();
             }
-            return Ok(user);
+            var userDto = new CurrentUserDto
+            {
+                UserName = user.UserName,
+                CreatedDate = user.Created
+            };
+            return Ok(userDto);
         }
 
         [HttpPost]

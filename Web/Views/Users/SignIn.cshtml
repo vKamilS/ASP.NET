@@ -37,9 +37,22 @@
                                       @@click:append="() => (hidePassword = !hidePassword)"></v-text-field>
                         <v-layout class="justify-space-between">
                             <v-btn :href="createUserPage" class="green darken-2 white--text text-capitalize">Create user</v-btn>
-                            <v-btn class="green darken-2 white--text text-capitalize" @@click="signIn">Sign In</v-btn>
+
+                            <v-dialog width="600px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-btn v-bind="attrs" v-on="on" class="green darken-2 white--text text-capitalize" width="125px" slot="activator" @@click="signIn">
+                                        SignIn
+                                    </v-btn>
+                                </template>
+                                <v-card v-if="popUpValue == 'validated'">
+                                    <v-container text-center class="display-1 light-green darken-1 white--text">USER SIGNED IN</v-container>
+                                </v-card>
+                                <v-card v-if="popUpValue == 'not validated'">
+                                    <v-container text-center class="display-1 red accent-2 white--text">THE FORM HAS NOT BEEN COMPLETED CORRECTLY</v-container>
+
+                                </v-card>
+                            </v-dialog>
                         </v-layout>
-                        <v-btn @@click="testUser" >test</v-btn>
                                       
 
                    </v-form>
@@ -53,7 +66,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/js/kapp.js"></script>
+    <script src="/js/kNavTemplate.js"></script>
     <script>
 
  
@@ -68,15 +81,23 @@
                     Password: ""
                 },
                 user: "",
-                userEmail: ""
+                userEmail: "",
+                popUpValue: ""
             },
             methods:{
                 async signIn(){
-                    var response = await axios.post(`${window.location.origin}/Users/Login`, this.userLoginDto);
-                    var getResponse = await axios.get(`${window.location.origin}/Users/GetCurrentUser`);
-                    this.user = getResponse.data.userName;
-                    console.log(getResponse);
-                    return response;
+                    try {
+                        var response = await axios.post(`${window.location.origin}/Users/Login`, this.userLoginDto);
+                        this.popUpValue = "validated";
+                        setTimeout(function () {
+                            window.location = `${window.location.origin}/Home/Index`;
+                        }, 2000);
+                    } catch(error)
+                    {
+                        this.popUpValue = "not validated";
+                        console.log("not ok")
+                    };
+
 
                 },
                 testUser() {

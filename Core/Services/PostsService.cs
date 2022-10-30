@@ -52,6 +52,8 @@ namespace Core.Services
 
             entity.Title = model.Title;
             entity.Content = model.Content;
+            entity.Author = model.Author;
+            entity.Created = model.Created;
 
             await BlogPostsDbContext.SaveChangesAsync();
         }

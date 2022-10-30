@@ -70,7 +70,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/js/kapp.js"></script>
+    <script src="/js/kNavTemplate.js"></script>
 
     <script>
             const model = @Html.Raw(JsonSerializer.Serialize(Model, new JsonSerializerOptions(){
@@ -86,6 +86,7 @@
                     actualSite: "Blog Posts",
                     newPostTitle: "",
                     newPostContent: "",
+                    newPostAuthor: "",
                     popUpValue: "",
                     newPostModel: model, 
                     titleRules: [
@@ -104,17 +105,28 @@
                                 this.popUpValue = "validated";
                                 this.newPostModel.Title = this.newPostTitle;
                                 this.newPostModel.Content = this.newPostContent;
+                                this.newPostModel.Author = this.newPostAuthor;
 
                                 console.log(this.newPostModel);
 
                              var response = await axios.post(`https://localhost:7167/BlogPosts/AddPost`, this.newPostModel);
                              setTimeout(function(){
-                                window.location = `${windol.location.origin}/BlogPosts/Index`;
-                                },3000);
+                                window.location = `${window.location.origin}/BlogPosts/Index`;
+                                },2000);
                         }
                         else {
                             this.popUpValue = "not validated";
                         }
+                    }
+                },
+                async mounted() {
+                    try{
+                        var response = await axios.get(`${window.location.origin}/Users/GetCurrentUser`);
+                        console.log(response);
+                        this.newPostAuthor = response.data.userName;
+                    } catch(error)
+                    {
+
                     }
                 },
                 computed: {

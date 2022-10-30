@@ -1,4 +1,4 @@
-﻿namespace Web.Dto
+﻿namespace Web
 {
     public class UserRegisterDto
     {

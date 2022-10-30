@@ -33,6 +33,7 @@ namespace Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddPost([FromBody] PostModel model)
         {
+            model.Created = DateTime.Now.ToString("MM/dd/yyyy hh:mm tt");
             await PostsService.Save(model);
             return Ok();
         }

@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\js\kapp.js" />
+    <Content Remove="wwwroot\js\kNavTemplate.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\kNavTemplate.js" />
   </ItemGroup>
 
   <ItemGroup>
