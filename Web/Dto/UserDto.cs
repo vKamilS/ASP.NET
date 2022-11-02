@@ -1,9 +1,10 @@
 ﻿namespace Web
 {
-    public class CurrentUserDto
+    public class UserDto
     {
         public string UserName { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public string Email { get; set; }
+        public string CreatedDate { get; set; }
         public string AvatarLink { get; set; }
     }
 }

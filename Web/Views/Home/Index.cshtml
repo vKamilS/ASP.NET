@@ -20,9 +20,102 @@
 </head>
 <body>
     <div id="app" v-cloak>
-        <k-layout :page-title="actualSite">
-            <h1>This is Home page</h1>
-           
+        <k-layout :page-title="actualSite" justify-space-around>
+            <v-card flat class="mx-4 lime lighten-4">
+                <v-layout row wrap class="ma-4">
+                    <v-flex xs12 text-center class="pa-2">
+                        <h1>Welcome to BlogPostApp</h1>
+                    </v-flex> 
+                    <v-flex xs12 class="pa-2">
+                        <v-row class="px-3 ml-4">Hi, I'm Kamil. More about me is on the bottom of this side. Below you can see some information about this App.</v-row>
+                        <v-row class="px-3">This is my <strong class="mx-1"> BlogPostApp </strong> to show my skills of creating a web App using technology:</v-row>
+                        <v-row class="px-3">- C#</v-row>
+                        <v-row class="px-3">- ASP.NET CORE 6</v-row>
+                        <v-row class="px-3">- ENTITY Framework</v-row>
+                        <v-row class="px-3">- Javascript (Vue, Vuetify)</v-row>
+                        <v-row class="px-3">- axios</v-row>
+                    </v-flex>
+                    <v-flex xs12 class="pa-2 mt-4">
+                        <v-row class="ml-1">To run App you need to have instaled SQL server on your computer. Empty database will be created on start of App.</v-row>
+                    </v-flex>
+                    <v-flex xs6 md3 class="pa-2">
+                        <v-img src="/img/signIn.png" width="250px"></v-img>
+                    </v-flex>
+                    <v-flex xs6 md9 class="pa-2 mt-4">
+                        <v-row>To add new Post you need first to sign in to side.</v-row>
+                    </v-flex>
+                    <v-flex xs6 md3 class="pa-2">
+                        <v-img src="/img/CreateUser.png" width="250px"></v-img>
+                    </v-flex>
+                    <v-flex xs6 md9 class="pa-2 mt-4">
+                        <v-row>If you don't have account, you need first to create one.</v-row>
+                    </v-flex>
+                    <v-flex xs6 md3 class="pa-2">
+                        <v-img src="/img/addPost.png" width="250px"></v-img>
+                    </v-flex>
+                    <v-flex xs6 md9 class="pa-2 mt-4">
+                        <v-row>After sign in add post button will shown on Blog Posts page</v-row>
+                    </v-flex>
+                    <v-flex xs12 class="pa-2">
+                        <v-row class="my-2">  <v-divider></v-divider> </v-row>
+                        <v-row class="px-3 font-weight-bold">Functionalities that are already implemented:</v-row>
+                        <v-row class="px-3">- created databese with users autentication system using entity framework IdentityBdContext</v-row>
+                        <v-row class="px-3">- creating an account</v-row>
+                        <v-row class="px-3">- sign in and sign out system</v-row>
+                        <v-row class="px-3">- get from database all posts and display them on BlogPosts page with pagination system (6 posts on 1 page)</v-row>
+                        <v-row class="px-3">- adding new posts with validation on adding form</v-row>
+                        <v-row class="px-3">- get all users from database and display them on Users page</v-row>
+                        <v-row class="px-3">- checking if user is logged</v-row>
+                        <v-row class="px-3 mb-2">- checking if user is logged</v-row>
+                        <v-row class="my-2">  <v-divider></v-divider> </v-row>
+                        <v-row class="px-3 font-weight-bold">Functionalities that will be implemented in near future:</v-row>
+                        <v-row class="px-3">- validation od create user form</v-row>
+                        <v-row class="px-3">- validation of sign in form</v-row>
+                        <v-row class="px-3">- contact page with sending e-mail system</v-row>
+                        <v-row class="px-3">- pagination on Users page</v-row>
+                        <v-row class="px-3">- filter for posts</v-row>
+                        <v-row class="px-3">- sorter for posts</v-row>
+                        <v-row class="px-3">- account management page</v-row>
+                        <v-row class="px-3">- post edit and delete page</v-row>
+                        <v-row class="px-3">- confirmation e-mail with token</v-row>
+                        <v-row class="px-3">- confirmation e-mail with token</v-row>
+                    </v-flex>
+                    <v-flex xs12 class="pa-2">
+                        <v-row class="my-2">  <v-divider></v-divider> </v-row>
+                        <v-row>
+                            As I wrote at the top of the page my name is Kamil. I'm electrical engineer looking to became a App Developer.
+                        </v-row>
+                        <v-row>
+                            <v-flex xs4 md2>
+                                <v-container justify-end>
+                                    <v-img src="/img/electrical-engineer.png" width="100px" class="mt-2"></v-img>
+                                </v-container>
+                            </v-flex>
+                            <v-flex xs4 md2>
+                                <v-img src="/img/arrow.png" width="100px" class="mt-2"></v-img>
+                            </v-flex>
+                                <v-flex xs4 md2>
+                                <v-img src="/img/AppDev.png" width="100px" class="mt-2"></v-img>
+                            </v-flex>
+                        </v-row>
+                        <v-row>
+                            Currently I'm working in Jacobs GDC Electrical Department in Cracow. Three years ago I started learning 
+                            programming. Firstly I was learning HTML,CSS and Javascript and I liked it very much. But 1,5 year ago I change my job and join Jacobs team.
+                            I need to stop learning programming and need to learn Revit and Jacobs standards. Then I thought I can learn python, because it
+                            can speed up my work. I finish my first course and my department sigh me up to advance python course. But hwen I've started go deeper 
+                            I've figured out that with C# I can build fully functional Revit Addin with ribbon and windows. And it was a breakthrough. C# was my 
+                            programming languadge. I learned C#, Revit API and developed working Revit addin to calculating voltage drop and circuits impedance. 
+                            Then I've start learnign Entity Framework and ASP.NET to became c# developer in the future. For now my tech stack is: HTML, CSS (basics, 
+                            but need to be refreshed), Javascript(the same as CSS), C# (.NET5, .NET6, WPF basic, ASP.NET, ENTITY FRAMEWORK) and Vue (with vuetify).
+                            This App is a presentetion what I can build with my skills.
+                        </v-row>
+                        
+                       
+                       
+
+                    </v-flex>
+                </v-layout>
+            </v-card>
         </k-layout>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>

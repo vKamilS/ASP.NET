@@ -40,7 +40,7 @@
 
                             <v-dialog width="600px">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn v-bind="attrs" v-on="on" class="green darken-2 white--text text-capitalize" width="125px" slot="activator" @@click="signIn">
+                                    <v-btn v-bind="attrs" v-on="on" class="green darken-4 white--text text-capitalize" width="125px" slot="activator" @@click="signIn">
                                         SignIn
                                     </v-btn>
                                 </template>
@@ -91,7 +91,7 @@
                         this.popUpValue = "validated";
                         setTimeout(function () {
                             window.location = `${window.location.origin}/Home/Index`;
-                        }, 2000);
+                        }, 500);
                     } catch(error)
                     {
                         this.popUpValue = "not validated";

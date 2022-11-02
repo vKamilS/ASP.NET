@@ -36,7 +36,7 @@
                         <v-text-field label="Title" v-model="newPostTitle" prepend-icon="mdi-folder" :rules="titleRules" counter="30"></v-text-field>
                         <v-textarea label="Content" v-model="newPostContent" prepend-icon="mdi-application-edit-outline" :rules="contentRules" counter="1000"></v-textarea>
                         <v-layout class="mt-2" justify-space-between>
-                            <v-btn class="green darken-2 white--text" width="125px" :href="blogPostsLink">
+                            <v-btn class="green darken-4 white--text" width="125px" :href="blogPostsLink">
                                 <v-icon left>mdi-chevron-double-left</v-icon>
                                 Back
                             </v-btn>
@@ -44,7 +44,7 @@
                             
                             <v-dialog width="600px">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn v-bind="attrs" v-on="on" class="green darken-2 white--text" width="125px" slot="activator" @@click="submit">
+                                    <v-btn v-bind="attrs" v-on="on" class="green darken-4 white--text" width="125px" slot="activator" @@click="submit">
                                     <v-icon left>mdi-plus-thick</v-icon>
                                     Add post
                                     </v-btn>
@@ -112,7 +112,7 @@
                              var response = await axios.post(`https://localhost:7167/BlogPosts/AddPost`, this.newPostModel);
                              setTimeout(function(){
                                 window.location = `${window.location.origin}/BlogPosts/Index`;
-                                },2000);
+                                },500);
                         }
                         else {
                             this.popUpValue = "not validated";

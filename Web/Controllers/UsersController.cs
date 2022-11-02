@@ -21,11 +21,19 @@ namespace Web.Controllers
 
         }
 
+        
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             //var users = await UserService.GetAllUsers();
-            return View();
+            var usersModel = _userManager.Users.Select(x => new UserDto()
+            {
+                UserName = x.UserName,
+                Email = x.Email,
+                CreatedDate = x.Created.ToString("MM/dd/yyyy hh:mm tt"),
+                AvatarLink = x.AvatarLink,
+            });
+            return View(usersModel);
         }
 
         [HttpGet]
@@ -55,7 +63,8 @@ namespace Web.Controllers
             var userDto = new CurrentUserDto
             {
                 UserName = user.UserName,
-                CreatedDate = user.Created
+                CreatedDate = user.Created,
+                AvatarLink = user.AvatarLink,
             };
             return Ok(userDto);
         }
@@ -68,6 +77,7 @@ namespace Web.Controllers
                 UserName = userRegisterDto.UserName,
                 Email = userRegisterDto.Email,
                 Created = DateTime.Now,
+                AvatarLink = userRegisterDto.AvatarLink,
                 
             };
             

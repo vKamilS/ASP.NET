@@ -33,6 +33,24 @@
                        <h2>Create user</h2>
                         <v-text-field label="Login" prepend-icon="mdi-account" v-model="userRegisterDto.UserName"></v-text-field>
                         <v-text-field label="E-mail" prepend-icon="mdi-account" v-model=userRegisterDto.Email></v-text-field>
+                        <v-row class="pa-3">
+                            <v-avatar size=48 class="mr-4 my-1">
+                                <v-img :src=userRegisterDto.AvatarLink alt="'avatar'"></v-img>
+                            </v-avatar>
+                            
+                            <v-select v-model="avatarSelection"
+                                      :hint="`${avatarSelection.avatar}`"
+                                      :items="items"
+                                      item-text="avatar"
+                                      item-value="${avatarSelection.abbr}"
+                                      label="Select"
+                                      persistent-hint
+                                      return-object
+                                      single-linee
+                                      @@change="onChange($event)">
+
+                            </v-select>
+                        </v-row>
                         <v-text-field label="Password" :type="hidePassword ? 'password' : 'text'" prepend-icon="mdi-key"
                                       :append-icon="hidePassword ? 'mdi-eye-off' : 'mdi-eye'" v-model=userRegisterDto.Password
                                       @@click:append="() => (hidePassword = !hidePassword)"></v-text-field>
@@ -40,8 +58,8 @@
                                       :append-icon="hidePassword ? 'mdi-eye-off' : 'mdi-eye'"
                                       @@click:append="() => (hidePassword = !hidePassword)"></v-text-field>
                         <v-layout class="justify-space-between">
-                            <v-btn :href="signInPage" class="green darken-2 white--text text-capitalize">Back</v-btn>
-                            <v-btn class="green darken-2 white--text text-capitalize" @@click="create">Create</v-btn>
+                            <v-btn :href="signInPage" class="green darken-4 white--text text-capitalize">Back</v-btn>
+                            <v-btn class="green darken-4 white--text text-capitalize" @@click="create">Create</v-btn>
                         </v-layout>
                                       
 
@@ -69,23 +87,33 @@
                 userRegisterDto: {
                     UserName: "",
                     Email: "",
-                    Password: ""
-                }
+                    Password: "",
+                    AvatarLink: "/avatars/avatar-default.png"
+                },
+                avatarSelection: { avatar: "default avatar", avatarLink: "/avatars/avatar-default.png" },
+                items: [
+                    { avatar: "default avatar", avatarLink: "/avatars/avatar-default.png" },
+                    { avatar: "avatar1", avatarLink: "/avatars/avatar-1.png" },
+                    { avatar: "avatar2", avatarLink: "/avatars/avatar-2.png" },
+                    { avatar: "avatar3", avatarLink: "/avatars/avatar-3.png" },
+                ]
+               
             },
             methods:{
                 async create(){
                     return response = await axios.post(`${window.location.origin}/Users/Register`, this.userRegisterDto)
+                },
+                onChange(e) {
+                    this.userRegisterDto.AvatarLink = e.avatarLink;
                 }
             },
             computed: {
                 
                 signInPage() {
                     return window.location.origin + "/Users/SignIn"
-                },
-                
-
-
+                }
             },
+
         });
     </script>
 </body>

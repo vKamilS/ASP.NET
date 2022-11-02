@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KLearn.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace KLearn.DataAccess
 {

@@ -15,7 +15,8 @@ namespace Web.Controllers
         }
         public async Task<IActionResult> Index(int? page)
         {
-            var model = await PostsService.GetModels();
+            var model = await PostsService.GetModels(page);
+
             var viewModel = new PostsSearchViewModel()
             {
                 Model = model,

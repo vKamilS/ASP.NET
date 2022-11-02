@@ -1,5 +1,6 @@
 ﻿using Core.Models;
 using DataAccess.Data;
+using KLearn.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
 namespace Core.Services
@@ -16,10 +17,7 @@ namespace Core.Services
         {
             return await DbContext.Users.Select(x => new UserModel()
             {
-                UserId = x.UserId,
-                Name = x.Name,
-                Email = x.Email,
-                CakeDay = x.CakeDay.Value.Date,
+
 
             }).ToArrayAsync();
         }
