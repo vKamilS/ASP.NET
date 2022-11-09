@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
+    <title>Blog Post App - sign in</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
@@ -36,7 +36,7 @@
                                       :append-icon="hidePassword ? 'mdi-eye-off' : 'mdi-eye'" v-model="userLoginDto.Password" 
                                       @@click:append="() => (hidePassword = !hidePassword)"></v-text-field>
                         <v-layout class="justify-space-between">
-                            <v-btn :href="createUserPage" class="green darken-2 white--text text-capitalize">Create user</v-btn>
+                            <v-btn :href="createUserPage" class="green darken-4 white--text text-capitalize">Create user</v-btn>
 
                             <v-dialog width="600px">
                                 <template v-slot:activator="{ on, attrs }">
@@ -48,8 +48,7 @@
                                     <v-container text-center class="display-1 light-green darken-1 white--text">USER SIGNED IN</v-container>
                                 </v-card>
                                 <v-card v-if="popUpValue == 'not validated'">
-                                    <v-container text-center class="display-1 red accent-2 white--text">THE FORM HAS NOT BEEN COMPLETED CORRECTLY</v-container>
-
+                                    <v-container text-center class="display-1 red accent-2 white--text">USERNAME OR PASSWORD IS INCORRECT</v-container>
                                 </v-card>
                             </v-dialog>
                         </v-layout>
@@ -95,17 +94,10 @@
                     } catch(error)
                     {
                         this.popUpValue = "not validated";
-                        console.log("not ok")
                     };
-
-
                 },
-                testUser() {
-                    return console.log(this.user);
-                }
             },
             computed: {
-                
                 createUserPage() {
                     return window.location.origin + "/Users/CreateUserPage"
                 },

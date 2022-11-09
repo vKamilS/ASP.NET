@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
+    <title>Blog Post App - add post</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
@@ -30,7 +30,6 @@
         <k-layout :page-title="actualSite">
             <v-layout class="mt-5" justify-space-around>
                 <v-flex xs10 md8>
-                    
                     <v-form class="border pa-5 white" ref="addPostForm">
                         <h2>Add new post</h2>
                         <v-text-field label="Title" v-model="newPostTitle" prepend-icon="mdi-folder" :rules="titleRules" counter="30"></v-text-field>
@@ -85,7 +84,7 @@
                 data: {
                     actualSite: "Blog Posts",
                     newPostTitle: "",
-                    newPostContent: "",
+                    newPostContent: ``,
                     newPostAuthor: "",
                     popUpValue: "",
                     newPostModel: model, 

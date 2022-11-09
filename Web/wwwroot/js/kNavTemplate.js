@@ -116,10 +116,8 @@
             const response = await axios.get(`${window.location.origin}/Users/GetCurrentUser`);
             this.currentUserName = response.data.userName;
             this.currentUserAvatar = response.data.avatarLink;
-            console.log(this.currentUserAvatar);
             this.signButtonText = "SignOut";
         } catch (error) {
-            console.log(error.response.status);
             this.signButtonText = "SignIn";
         }
     }

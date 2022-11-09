@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
+    <title>Blog Post App - create user</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
@@ -32,7 +32,7 @@
                    <v-form class="border pa-5 white" href="signInForm">
                        <h2>Create user</h2>
                         <v-text-field label="Login" prepend-icon="mdi-account" v-model="userRegisterDto.UserName"></v-text-field>
-                        <v-text-field label="E-mail" prepend-icon="mdi-account" v-model=userRegisterDto.Email></v-text-field>
+                        <v-text-field label="E-mail" prepend-icon="mdi-account" v-model="userRegisterDto.Email"></v-text-field>
                         <v-row class="pa-3">
                             <v-avatar size=48 class="mr-4 my-1">
                                 <v-img :src=userRegisterDto.AvatarLink alt="'avatar'"></v-img>
@@ -52,14 +52,27 @@
                             </v-select>
                         </v-row>
                         <v-text-field label="Password" :type="hidePassword ? 'password' : 'text'" prepend-icon="mdi-key"
-                                      :append-icon="hidePassword ? 'mdi-eye-off' : 'mdi-eye'" v-model=userRegisterDto.Password
+                                      :append-icon="hidePassword ? 'mdi-eye-off' : 'mdi-eye'" v-model="userRegisterDto.Password"
                                       @@click:append="() => (hidePassword = !hidePassword)"></v-text-field>
                         <v-text-field label="Repeat password" :type="hidePassword ? 'password' : 'text'" prepend-icon="mdi-key"
-                                      :append-icon="hidePassword ? 'mdi-eye-off' : 'mdi-eye'"
+                                      :append-icon="hidePassword ? 'mdi-eye-off' : 'mdi-eye'" v-model="reapetedPassword"
                                       @@click:append="() => (hidePassword = !hidePassword)"></v-text-field>
                         <v-layout class="justify-space-between">
                             <v-btn :href="signInPage" class="green darken-4 white--text text-capitalize">Back</v-btn>
-                            <v-btn class="green darken-4 white--text text-capitalize" @@click="create">Create</v-btn>
+
+                            <v-dialog width="600px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-btn v-bind="attrs" v-on="on" class="green darken-4 white--text text-capitalize" width="125px" slot="activator" @@click="create">
+                                        Create
+                                    </v-btn>
+                                </template>
+                                <v-card v-if="popUpValue == 'validated'">
+                                    <v-container text-center class="display-1 light-green darken-1 white--text">{{messageValue}}</v-container>
+                                </v-card>
+                                <v-card v-if="popUpValue == 'not validated'">
+                                    <v-container text-center class="display-1 red accent-2 white--text">{{messageValue}}</v-container>
+                                </v-card>
+                            </v-dialog>
                         </v-layout>
                                       
 
@@ -90,25 +103,55 @@
                     Password: "",
                     AvatarLink: "/avatars/avatar-default.png"
                 },
+                reapetedPassword: "",
                 avatarSelection: { avatar: "default avatar", avatarLink: "/avatars/avatar-default.png" },
                 items: [
                     { avatar: "default avatar", avatarLink: "/avatars/avatar-default.png" },
                     { avatar: "avatar1", avatarLink: "/avatars/avatar-1.png" },
                     { avatar: "avatar2", avatarLink: "/avatars/avatar-2.png" },
                     { avatar: "avatar3", avatarLink: "/avatars/avatar-3.png" },
-                ]
+                ],
+                popUpValue: "",
+                messageValue: "",
                
             },
             methods:{
                 async create(){
-                    return response = await axios.post(`${window.location.origin}/Users/Register`, this.userRegisterDto)
+                    if (this.userRegisterDto.Password != this.reapetedPassword) {
+                        this.popUpValue = "not validated";
+                        this.messageValue = "PASSWORD AND REPEAT PASSWORD FIELD MUST BE THE SAME";
+                        return
+                    }
+
+                    try {
+                        var response = await axios.post(`${window.location.origin}/Users/Register`, this.userRegisterDto);
+                        this.popUpValue = "validated";
+                        this.messageValue = "USER CREATED SUCCESFULLY";
+                        setTimeout(function () {
+                            window.location = `${window.location.origin}/Home/Index`;
+                        }, 500);
+                    } catch (error) {
+                        this.popUpValue = "not validated";
+                        console.log(error.response.data)
+                        if (error.response.data == "user exist") 
+                        {
+                            this.messageValue = "THIS USER EXISTS, PLEASE CHOOSE ANOTHER USER NAME";
+                            return
+                        }
+                        else if (error.response.data == "bad email")
+                        {
+                            this.messageValue = "INCORRECT E-MAIL";
+                            return
+                        }
+                        this.messageValue = "PASSWORD MUST TO CONTAIN AT LEAST ONE UPPERCASE LETTER, ONE LOWERCASE LETTER, ONE NUMBER AND ONE SPECIAL CHARACTER";
+                        
+                    };
                 },
                 onChange(e) {
                     this.userRegisterDto.AvatarLink = e.avatarLink;
                 }
             },
             computed: {
-                
                 signInPage() {
                     return window.location.origin + "/Users/SignIn"
                 }

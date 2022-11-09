@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
+    <title>Blog Post App</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
@@ -27,16 +27,18 @@
                         <h1>Welcome to BlogPostApp</h1>
                     </v-flex> 
                     <v-flex xs12 class="pa-2">
-                        <v-row class="px-3 ml-4">Hi, I'm Kamil. More about me is on the bottom of this side. Below you can see some information about this App.</v-row>
-                        <v-row class="px-3">This is my <strong class="mx-1"> BlogPostApp </strong> to show my skills of creating a web App using technology:</v-row>
-                        <v-row class="px-3">- C#</v-row>
-                        <v-row class="px-3">- ASP.NET CORE 6</v-row>
-                        <v-row class="px-3">- ENTITY Framework</v-row>
-                        <v-row class="px-3">- Javascript (Vue, Vuetify)</v-row>
-                        <v-row class="px-3">- axios</v-row>
+                        <v-row class="px-3">
+                            &nbsp &nbsp &nbsp &nbsp Hi, I'm Kamil. More about me is on the bottom of this side. Below you can see some information about this App.<br />
+                            This is my BlogPostApp to show my skills of creating a web App using technology:<br />
+                            - C#<br />
+                            - ASP.NET CORE 6<br />
+                            - ENTITY Framework<br />
+                            - Javascript (Vue, Vuetify)<br />
+                            - axios
+                        </v-row>
                     </v-flex>
                     <v-flex xs12 class="pa-2 mt-4">
-                        <v-row class="ml-1">To run App you need to have instaled SQL server on your computer. Empty database will be created on start of App.</v-row>
+                        <v-row class="ml-1">To run App you need to have installed SQL server on your computer. Empty database will be created on start of App.</v-row>
                     </v-flex>
                     <v-flex xs6 md3 class="pa-2">
                         <v-img src="/img/signIn.png" width="250px"></v-img>
@@ -48,37 +50,40 @@
                         <v-img src="/img/CreateUser.png" width="250px"></v-img>
                     </v-flex>
                     <v-flex xs6 md9 class="pa-2 mt-4">
-                        <v-row>If you don't have account, you need first to create one.</v-row>
+                        <v-row>If you don't have an account, you need first to create one.</v-row>
                     </v-flex>
                     <v-flex xs6 md3 class="pa-2">
                         <v-img src="/img/addPost.png" width="250px"></v-img>
                     </v-flex>
                     <v-flex xs6 md9 class="pa-2 mt-4">
-                        <v-row>After sign in add post button will shown on Blog Posts page</v-row>
+                        <v-row>After sign in add post button will show on Blog Posts page</v-row>
                     </v-flex>
                     <v-flex xs12 class="pa-2">
                         <v-row class="my-2">  <v-divider></v-divider> </v-row>
                         <v-row class="px-3 font-weight-bold">Functionalities that are already implemented:</v-row>
-                        <v-row class="px-3">- created databese with users autentication system using entity framework IdentityBdContext</v-row>
-                        <v-row class="px-3">- creating an account</v-row>
-                        <v-row class="px-3">- sign in and sign out system</v-row>
-                        <v-row class="px-3">- get from database all posts and display them on BlogPosts page with pagination system (6 posts on 1 page)</v-row>
-                        <v-row class="px-3">- adding new posts with validation on adding form</v-row>
-                        <v-row class="px-3">- get all users from database and display them on Users page</v-row>
-                        <v-row class="px-3">- checking if user is logged</v-row>
-                        <v-row class="px-3 mb-2">- checking if user is logged</v-row>
+                        <v-row class="px-3 mb-2">
+                            - validation od create user form<br />
+                            - validation of sign in form<br />
+                            - created database with users authentication system using entity framework IdentityBdContext<br />
+                            - creating an account<br />
+                            - sign in and sign out system<br />
+                            - get from database all posts and display them on BlogPosts page with pagination system (6 posts on 1 page)<br />
+                            - adding new posts with validation on adding form<br />
+                            - get all users from database and display them on Users page<br />
+                            - checking if user is logged</v-row>
+
                         <v-row class="my-2">  <v-divider></v-divider> </v-row>
+                        
                         <v-row class="px-3 font-weight-bold">Functionalities that will be implemented in near future:</v-row>
-                        <v-row class="px-3">- validation od create user form</v-row>
-                        <v-row class="px-3">- validation of sign in form</v-row>
-                        <v-row class="px-3">- contact page with sending e-mail system</v-row>
-                        <v-row class="px-3">- pagination on Users page</v-row>
-                        <v-row class="px-3">- filter for posts</v-row>
-                        <v-row class="px-3">- sorter for posts</v-row>
-                        <v-row class="px-3">- account management page</v-row>
-                        <v-row class="px-3">- post edit and delete page</v-row>
-                        <v-row class="px-3">- confirmation e-mail with token</v-row>
-                        <v-row class="px-3">- confirmation e-mail with token</v-row>
+                        <v-row class="px-3">
+                            - contact page with sending e-mail system<br />
+                            - pagination on Users page<br />
+                            - filter for posts<br />
+                            - sorter for posts<br />
+                            - account management page<br />
+                            - post edit and delete page<br />
+                            - confirmation e-mail with token</v-row>
+
                     </v-flex>
                     <v-flex xs12 class="pa-2">
                         <v-row class="my-2">  <v-divider></v-divider> </v-row>
@@ -102,7 +107,7 @@
                             Currently I'm working in Jacobs GDC Electrical Department in Cracow. Three years ago I started learning 
                             programming. Firstly I was learning HTML,CSS and Javascript and I liked it very much. But 1,5 year ago I change my job and join Jacobs team.
                             I need to stop learning programming and need to learn Revit and Jacobs standards. Then I thought I can learn python, because it
-                            can speed up my work. I finish my first course and my department sigh me up to advance python course. But hwen I've started go deeper 
+                            can speed up my work. I finished my first course and my department sigh me up to advance python course. But when I've started go deeper 
                             I've figured out that with C# I can build fully functional Revit Addin with ribbon and windows. And it was a breakthrough. C# was my 
                             programming languadge. I learned C#, Revit API and developed working Revit addin to calculating voltage drop and circuits impedance. 
                             Then I've start learnign Entity Framework and ASP.NET to became c# developer in the future. For now my tech stack is: HTML, CSS (basics, 

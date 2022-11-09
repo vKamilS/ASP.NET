@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
+    <title>Blog Post App - contact</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
@@ -19,13 +19,40 @@
 </head>
 <body>
     <div id="app" v-cloak>
-        <k-layout :page-title="actualSite">
-            <v-container fluid>
-                <v-row>
-                    <h1>This is contact page</h1>
-                </v-row>
-            </v-container>
-            
+            <k-layout :page-title="actualSite">
+                <v-layout class="mt-5" justify-space-around>
+                    <v-flex xs10 md8>
+                        <v-form class="border pa-5 white">
+                            <h2>Add new post</h2>
+                            <v-text-field label="Email" prepend-icon="mdi-email" counter="30"></v-text-field>
+                            <v-textarea label="Message" prepend-icon="mdi-application-edit-outline" counter="1000"></v-textarea>
+                            <v-layout class="mt-2" justify-space-between>
+                                <v-btn class="green darken-4 white--text" width="125px">
+                                    <v-icon left>mdi-chevron-double-left</v-icon>
+                                    Back
+                                </v-btn>
+
+
+                                <v-dialog width="600px">
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-btn v-bind="attrs" v-on="on" class="green darken-4 white--text" width="125px" slot="activator">
+                                            <v-icon left>mdi-plus-thick</v-icon>
+                                            Add post
+                                        </v-btn>
+                                    </template>
+                                    <v-card v-if="popUpValue == 'validated'">
+                                        <v-container text-center class="display-1 light-green darken-1 white--text">NEW POST WAS ADDED</v-container>
+                                    </v-card>
+                                    <v-card v-if="popUpValue == 'not validated'">
+                                        <v-container text-center class="display-1 red accent-2 white--text">THE FORM HAS NOT BEEN COMPLETED CORRECTLY</v-container>
+
+                                    </v-card>
+                                </v-dialog>
+                            </v-layout>
+                        </v-form>
+
+                    </v-flex>
+                </v-layout>
         </k-layout>
 
                
@@ -44,6 +71,7 @@
             vuetify: new Vuetify(),
             data: {
                 actualSite: "Contact",
+                popUpValue: "",
             },
             methods:{  
             },

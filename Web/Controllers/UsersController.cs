@@ -2,6 +2,7 @@
 using KLearn.DataAccess.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mail;
 using Web;
 
 namespace Web.Controllers
@@ -79,6 +80,20 @@ namespace Web.Controllers
                 Created = DateTime.Now,
                 AvatarLink = userRegisterDto.AvatarLink,
                 
+            };
+            var foundUser = await _userManager.FindByNameAsync(newUser.UserName);
+            if (foundUser != null)
+            {
+                return NotFound("user exist");
+            };
+
+            try
+            {
+                var emailAdress = new MailAddress(newUser.Email);
+            }
+            catch
+            {
+                return NotFound("bad email");
             };
             
             var result = await _userManager.CreateAsync(newUser, userRegisterDto.Password);
