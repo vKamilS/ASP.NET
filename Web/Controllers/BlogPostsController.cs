@@ -37,6 +37,7 @@ namespace Web.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Administrator,Standard")]
         public async Task<IActionResult> AddPostSite()
         {
             var model = new PostModel();
@@ -64,7 +65,7 @@ namespace Web.Controllers
             return View(viewModel);
         }
 
-
+        [Authorize(Roles = "Administrator,Standard")]
         [HttpPost]
         public async Task<IActionResult> SavePost([FromBody] PostModel model)
         {
@@ -78,6 +79,7 @@ namespace Web.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Administrator,Standard")]
         [HttpDelete]
         public async Task<IActionResult> DeletePost(int id)
         {

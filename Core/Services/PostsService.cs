@@ -3,6 +3,7 @@ using KLearn.DataAccess;
 using KLearn.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Globalization;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Core.Services
@@ -39,7 +40,9 @@ namespace Core.Services
                 Content = x.Content,
                 Author = x.Author,
                 Created = x.Created,
+                CreatedAsString = x.Created.Value.ToString("MM/dd/yyyy hh:mm tt"),
                 Edited = x.Edited,
+                EditedAsString = x.Edited.Value.ToString("MM/dd/yyyy hh:mm tt"),
             });
             const int pageSize = 6;
             if (page != null)

@@ -40,11 +40,10 @@
                                 Back
                             </v-btn>
                             
-                            <v-btn @@click="test">test</v-btn>
                             <v-dialog width="600px">
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-btn v-bind="attrs" v-on="on" class="green darken-4 white--text" width="125px" slot="activator" @@click="save">
-                                    <v-icon left>mdi-plus-thick</v-icon>
+                                        <v-icon left>mdi-content-save</v-icon>
                                     Save
                                     </v-btn>
                                 </template>
@@ -109,19 +108,14 @@
                                 console.log(this.editPostModel);
 
                              var response = await axios.post(`https://localhost:7167/BlogPosts/SavePost`, this.editPostModel);
-                             //setTimeout(function(){
-                             //   window.location = `${window.location.origin}/BlogPosts/Index`;
-                             //   },500);
+                             setTimeout(function(){
+                                window.location = `${window.location.origin}/BlogPosts/MyPostsSite`;
+                                },500);
                         }
                         else {
                             this.popUpValue = "not validated";
                         }
                     },
-                    async test(){
-                        console.log(this.editPostModel.content);
-                        console.log(this.editPostContent);
-
-                    }
                 },
                 async mounted() {
                     try{
