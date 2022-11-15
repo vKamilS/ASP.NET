@@ -32,20 +32,20 @@
                 <v-flex xs10 md8>
                     <v-form class="border pa-5 white" ref="addPostForm">
                         <h2>Add new post</h2>
-                        <v-text-field label="Title" v-model="newPostTitle" prepend-icon="mdi-folder" :rules="titleRules" counter="30"></v-text-field>
-                        <v-textarea label="Content" v-model="newPostContent" prepend-icon="mdi-application-edit-outline" :rules="contentRules" counter="1000"></v-textarea>
+                        <v-text-field label="Title" v-model="editPostTitle" prepend-icon="mdi-folder" :rules="titleRules" counter="30"></v-text-field>
+                        <v-textarea label="Content" v-model="editPostContent" prepend-icon="mdi-application-edit-outline" :rules="contentRules" counter="1000"></v-textarea>
                         <v-layout class="mt-2" justify-space-between>
-                            <v-btn class="green darken-4 white--text" width="125px" :href="blogPostsLink">
+                            <v-btn class="green darken-4 white--text" width="125px" :href="myPostsLink">
                                 <v-icon left>mdi-chevron-double-left</v-icon>
                                 Back
                             </v-btn>
                             
-                            
+                            <v-btn @@click="test">test</v-btn>
                             <v-dialog width="600px">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn v-bind="attrs" v-on="on" class="green darken-4 white--text" width="125px" slot="activator" @@click="submit">
+                                    <v-btn v-bind="attrs" v-on="on" class="green darken-4 white--text" width="125px" slot="activator" @@click="save">
                                     <v-icon left>mdi-plus-thick</v-icon>
-                                    Add post
+                                    Save
                                     </v-btn>
                                 </template>
                                 <v-card v-if="popUpValue == 'validated'">
@@ -76,18 +76,18 @@
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             }));
             
-            
+            console.log(model);
 
             const app = new Vue({
                 el: '#app',
                 vuetify: new Vuetify(),
                 data: {
-                    actualSite: "Blog Posts",
-                    newPostTitle: "",
-                    newPostContent: ``,
-                    newPostAuthor: "",
+                    actualSite: "Blog Posts - Edit",
+                    editPostTitle: model.title,
+                    editPostContent: model.content,
+                    editId: model.id,
                     popUpValue: "",
-                    newPostModel: model, 
+                    editPostModel: model, 
                     titleRules: [
                         v => v.length >= 3 || 'Minimum length is 3 characters',
                         v => v.length < 30 || 'Maximum length is 30 characters'
@@ -99,22 +99,28 @@
 
                 },
                 methods: {
-                    async submit(){
+                    async save(){
                         if (this.$refs.addPostForm.validate()){
                                 this.popUpValue = "validated";
-                                this.newPostModel.Title = this.newPostTitle;
-                                this.newPostModel.Content = this.newPostContent;
-                                this.newPostModel.Author = this.newPostAuthor;
+                                this.editPostModel.Title = this.editPostTitle;
+                                this.editPostModel.content = this.editPostContent;
+                                this.editPostModel.Id = this.editId;
+                                console.log(this.editPostContent);
+                                console.log(this.editPostModel);
 
-                             var response = await axios.post(`https://localhost:7167/BlogPosts/SavePost`, this.newPostModel);
-                             console.log(response);
-                             setTimeout(function(){
-                                window.location = `${window.location.origin}/BlogPosts/Index`;
-                                },500);
+                             var response = await axios.post(`https://localhost:7167/BlogPosts/SavePost`, this.editPostModel);
+                             //setTimeout(function(){
+                             //   window.location = `${window.location.origin}/BlogPosts/Index`;
+                             //   },500);
                         }
                         else {
                             this.popUpValue = "not validated";
                         }
+                    },
+                    async test(){
+                        console.log(this.editPostModel.content);
+                        console.log(this.editPostContent);
+
                     }
                 },
                 async mounted() {
@@ -128,8 +134,8 @@
                     }
                 },
                 computed: {
-                    blogPostsLink(){
-                    return window.location.origin + "/BlogPosts/Index"
+                    myPostsLink(){
+                    return window.location.origin + "/BlogPosts/MyPostsSite"
                     },
                     isFormValidate(){
                     return this.$refs.addPostForm.validate()

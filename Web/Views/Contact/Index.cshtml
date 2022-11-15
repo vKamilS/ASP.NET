@@ -14,7 +14,9 @@
     <link href="https://cdn.jsdelivr.net/npm/@@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
     <style>
-
+        [v-cloak] {
+            display: none
+        }
     </style>
 </head>
 <body>
@@ -23,8 +25,8 @@
                 <v-layout class="mt-5" justify-space-around>
                     <v-flex xs10 md8>
                         <v-form class="border pa-5 white">
-                            <h2>Add new post</h2>
-                            <v-text-field label="Email" prepend-icon="mdi-email" counter="30"></v-text-field>
+                            <h2>Message</h2>
+                            <v-text-field label="Your email" prepend-icon="mdi-email" counter="30"></v-text-field>
                             <v-textarea label="Message" prepend-icon="mdi-application-edit-outline" counter="1000"></v-textarea>
                             <v-layout class="mt-2" justify-space-between>
                                 <v-btn class="green darken-4 white--text" width="125px">
@@ -35,9 +37,9 @@
 
                                 <v-dialog width="600px">
                                     <template v-slot:activator="{ on, attrs }">
-                                        <v-btn v-bind="attrs" v-on="on" class="green darken-4 white--text" width="125px" slot="activator">
-                                            <v-icon left>mdi-plus-thick</v-icon>
-                                            Add post
+                                        <v-btn v-bind="attrs" v-on="on" class="green darken-4 white--text" width="175px" slot="activator">
+                                            <v-icon left>mdi-email-send</v-icon>
+                                            Send message
                                         </v-btn>
                                     </template>
                                     <v-card v-if="popUpValue == 'validated'">

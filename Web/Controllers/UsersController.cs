@@ -1,5 +1,6 @@
 ﻿using Core.Services;
 using KLearn.DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
@@ -13,27 +14,43 @@ namespace Web.Controllers
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        //public UserService UserService { get; set; }
+
         public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            //UserService = userService;
-
         }
 
         
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            //var users = await UserService.GetAllUsers();
-            var usersModel = _userManager.Users.Select(x => new UserDto()
+            var user = await _userManager.GetUserAsync(User);
+            IQueryable<UserDto>? usersModel = default;
+
+
+            if (user == null)
             {
-                UserName = x.UserName,
-                Email = x.Email,
-                CreatedDate = x.Created.ToString("MM/dd/yyyy hh:mm tt"),
-                AvatarLink = x.AvatarLink,
-            });
+                usersModel = _userManager.Users.Select(x => new UserDto()
+                {
+                    UserName = x.UserName.Substring(0,1)+"...",
+                    Email = "",
+                    CreatedDate = x.Created.ToString("MM/dd/yyyy hh:mm tt"),
+                    AvatarLink = x.AvatarLink,
+                });
+            }
+            else
+            {
+                usersModel = _userManager.Users.Select(x => new UserDto()
+                {
+                    UserName = x.UserName,
+                    Email = x.Email,
+                    CreatedDate = x.Created.ToString("MM/dd/yyyy hh:mm tt"),
+                    AvatarLink = x.AvatarLink,
+                });
+            }
+           
+           
             return View(usersModel);
         }
 
@@ -97,14 +114,33 @@ namespace Web.Controllers
             };
             
             var result = await _userManager.CreateAsync(newUser, userRegisterDto.Password);
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
-                await _userManager.ConfirmEmailAsync(newUser, token);
-
-                return Ok();
+                return NotFound();
             }
-            return NotFound();
+
+            if (_userManager.Users.Count() == 1)
+            {
+                var roleResult = await _userManager.AddToRoleAsync(newUser, "Administrator");
+                if (!roleResult.Succeeded)
+                {
+                    return StatusCode(405);
+                }
+            }
+            else
+            {
+                var roleResult = await _userManager.AddToRoleAsync(newUser, "Standard");
+                if (!roleResult.Succeeded)
+                {
+                    return StatusCode(405);
+                }
+            };
+            
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+            await _userManager.ConfirmEmailAsync(newUser, token);
+
+            return Ok();
         }
 
         [HttpPost]

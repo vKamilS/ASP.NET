@@ -24,8 +24,8 @@
                     <v-list>
                         <v-list-item
                             v-for="(item, index) in userMenu"
-                            :key="index">
-                                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                            :key="index" :href="item.url">
+                                <v-list-item-title >{{ item.title }}</v-list-item-title>
                         </v-list-item>
                     </v-list>
                 </v-menu>
@@ -52,7 +52,7 @@
                                 </v-list-item>
                                 <v-list-item v-for="link, i in links" :key="i">
                                     <v-list-item-content>
-                                        <v-btn :href=link.url class="green darken-4 white--text">
+                                        <v-btn :href="link.url" class="green darken-4 white--text">
                                             <v-col> 
                                                 <v-icon>{{link.icon}}</v-icon>
                                             </v-col>                                 
@@ -90,9 +90,9 @@
             currentUserName: "",
             currentUserAvatar: "",
             userMenu: [
-                { title: "My Account" },
-                { title: "My Posts" },
-                { title: "Other" }
+                { title: "My Account", url: "" },
+                { title: "My Posts", url: window.location.origin + '/BlogPosts/MyPostsSite' },
+                { title: "Other", url: "" }
             ]
             
         }

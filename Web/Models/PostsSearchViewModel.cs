@@ -6,5 +6,6 @@ namespace Web.Models
     {
         public IEnumerable<PostModel> Model { get; set; }
         public int Page { get; set; }
+        public string Search { get; set; }
     }
 }

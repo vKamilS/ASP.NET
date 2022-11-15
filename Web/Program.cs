@@ -34,6 +34,8 @@ builder.Services.AddScoped<IBlogPostsDbContext, BlogPostsDbContext>();
 builder.Services.AddScoped<PostsService, PostsService>();
 
 
+
+
 var app = builder.Build();
 IServiceProvider serviceProvider = app.Services;
 
