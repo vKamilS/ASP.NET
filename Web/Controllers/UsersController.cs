@@ -28,7 +28,6 @@ namespace Web.Controllers
             var user = await _userManager.GetUserAsync(User);
             IQueryable<UserDto>? usersModel = default;
 
-
             if (user == null)
             {
                 usersModel = _userManager.Users.Select(x => new UserDto()
@@ -50,7 +49,7 @@ namespace Web.Controllers
                 });
             }
            
-           
+
             return View(usersModel);
         }
 
@@ -101,7 +100,7 @@ namespace Web.Controllers
             var foundUser = await _userManager.FindByNameAsync(newUser.UserName);
             if (foundUser != null)
             {
-                return NotFound("user exist");
+                return BadRequest("user exist");
             };
 
             try
@@ -110,13 +109,19 @@ namespace Web.Controllers
             }
             catch
             {
-                return NotFound("bad email");
+                return BadRequest("bad email");
             };
-            
+
+            var foundEmail = await _userManager.FindByEmailAsync(newUser.Email);
+            if (foundEmail != null)
+            {
+                return BadRequest("e-mail exist");
+            };
+
             var result = await _userManager.CreateAsync(newUser, userRegisterDto.Password);
             if (!result.Succeeded)
             {
-                return NotFound();
+                return BadRequest();
             }
 
             if (_userManager.Users.Count() == 1)
@@ -152,7 +157,7 @@ namespace Web.Controllers
                 return NotFound();
             }
 
-            var result = await _signInManager.PasswordSignInAsync(foundUser, userLoginDto.Password, true, false);
+            var result = await _signInManager.PasswordSignInAsync(foundUser, userLoginDto.Password, false, false);
             if (result.Succeeded)
             {
                 return Ok();

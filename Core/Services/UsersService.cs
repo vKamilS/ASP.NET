@@ -17,7 +17,7 @@ namespace Core.Services
         {
             return await DbContext.Users.Select(x => new UserModel()
             {
-
+  
 
             }).ToArrayAsync();
         }

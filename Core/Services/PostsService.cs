@@ -30,7 +30,6 @@ namespace Core.Services
             if (!string.IsNullOrEmpty(search))
             {
                 filteredPostsDataBase = filteredPostsDataBase.Where(x => x.Content.Contains(search));
-                var filteredPostsDataBase1 = filteredPostsDataBase.Where(x => x.Content.Contains(search));
             };
             
             var query = filteredPostsDataBase.Select(x => new PostModel()

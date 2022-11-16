@@ -143,6 +143,10 @@
                             this.messageValue = "INCORRECT E-MAIL";
                             return
                         }
+                        else if (error.response.data == "e-mail exist") {
+                            this.messageValue = "E-MAIL EXIST";
+                            return
+                        }
                         this.messageValue = "PASSWORD MUST TO CONTAIN AT LEAST ONE UPPERCASE LETTER, ONE LOWERCASE LETTER, ONE NUMBER AND ONE SPECIAL CHARACTER";
                         
                     };
